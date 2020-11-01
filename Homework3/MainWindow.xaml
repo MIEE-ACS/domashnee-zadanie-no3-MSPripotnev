@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Homework3"
         mc:Ignorable="d"
-        Title="MainWindow" Height="320" Width="560"
+        Title="ГОСТ Р 51260-99" Height="320" Width="560"
         MinHeight="340" MinWidth="560"
         MaxWidth="640" MaxHeight="480">
     <Grid Margin="0,0,0,0">

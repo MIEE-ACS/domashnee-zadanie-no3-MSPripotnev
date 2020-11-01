@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Linq;
+using System.Reflection;
 using System.Windows;
 using System.Windows.Controls;
 
@@ -28,31 +30,32 @@ namespace Homework3
         };
 
         public int[] PossibleAnswers { get; private set; }
-        readonly int X;
-        readonly int Y;
-        readonly int AnswersCount = 4;
+        readonly int X, Y;
+        readonly int minValue = 1, maxValue = 50 + 1, AnswersCount = 4;
         readonly Operation op;
 
         public RandomTask()
         {
             Random rnd = new Random();
-            X = rnd.Next(1, 50);
-            Y = rnd.Next(1, 50);
-            op = (Operation)rnd.Next(0, 1);
+            X = rnd.Next(minValue, maxValue);
+            Y = rnd.Next(minValue, maxValue);
+            op = (Operation)rnd.Next(0, Enum.GetValues(typeof(Operation)).Length);
 
-            PossibleAnswers = AdditionalFunctions.AddFunc.GetRandomUniqueNumbers(AnswersCount, 1, X + Y);
+            PossibleAnswers = AdditionalFunctions.AddFunc.GetRandomUniqueNumbers(AnswersCount, 
+                OperationResult(Operation.Substract, minValue, maxValue), OperationResult(Operation.Sum, minValue, maxValue));
             if (Array.FindIndex<int>(PossibleAnswers, p => p == OperationResult(op, X, Y)) == -1)
                 PossibleAnswers[AnswersCount - 1] = OperationResult(op, X, Y);
         }
         public RandomTask(int answersCount)
         {
             Random rnd = new Random();
-            X = rnd.Next(1, 50);
-            Y = rnd.Next(1, 50);
-            op = (Operation)rnd.Next(0, 1);
+            X = rnd.Next(minValue, maxValue);
+            Y = rnd.Next(minValue, maxValue);
+            op = (Operation)rnd.Next(0, Enum.GetValues(typeof(Operation)).Length);
             AnswersCount = answersCount;
 
-            PossibleAnswers = AdditionalFunctions.AddFunc.GetRandomUniqueNumbers(AnswersCount, 1, X + Y);
+            PossibleAnswers = AdditionalFunctions.AddFunc.GetRandomUniqueNumbers(AnswersCount,
+                OperationResult(Operation.Substract, minValue, maxValue), OperationResult(Operation.Sum, minValue, maxValue));
             if (Array.FindIndex<int>(PossibleAnswers, p => p == OperationResult(op, X, Y)) == -1)
                 PossibleAnswers[AnswersCount - 1] = OperationResult(op, X, Y);
         }
